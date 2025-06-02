@@ -22,7 +22,7 @@ public class ReportPanel extends JPanel{
     private ItemList<ItemFromSupplier>  ifsList;
     private ItemList<ItemProducedInStore> ipsList;
     private SupplierList supplierList;
-    JEditorPane editorPane;
+    private JEditorPane editorPane;
     
     public ReportPanel(MainWindow mw) {
     	this.ifsList = mw.IFSList;
@@ -47,15 +47,11 @@ public class ReportPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				initData();
+				LoadHTML(editorPane);
 			}
 		});
     	panel.add(btnButton);
     	add(panel, BorderLayout.SOUTH);
-    }
-    
-    public void initData() {
-    	LoadHTML(editorPane);
     }
     
     public void LoadHTML(JEditorPane pan) {

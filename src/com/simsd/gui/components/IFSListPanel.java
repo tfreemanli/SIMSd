@@ -29,6 +29,9 @@ public class IFSListPanel extends JPanel{
     private JComboBox<String> schKey;
     private JTextField schValue;
     private ItemList<ItemFromSupplier>  dataList;
+    
+    //main panel use a display list to display the search result, keeping the real Data list behind, so that we can 
+    //reduce the IO operation from local data JSON.
     public ItemList<ItemFromSupplier> displayList;
     
     public IFSListPanel(MainWindow mw) {
@@ -41,6 +44,7 @@ public class IFSListPanel extends JPanel{
     	add(panel, BorderLayout.NORTH);
     	panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 15));
     	
+    	//===== Search Panel =============
     	JLabel lblNewLabel = new JLabel("Item:");
     	panel.add(lblNewLabel);
 
@@ -78,7 +82,8 @@ public class IFSListPanel extends JPanel{
     	table.getColumnModel().getColumn(5).setPreferredWidth(20);  // Unit
     	table.getColumnModel().getColumn(6).setPreferredWidth(50);  // Quantity
 
-        table.addMouseListener(new MouseAdapter() {
+        // when double click the table, open the detail page of selected item.
+    	table.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
                     int row = table.getSelectedRow();
@@ -92,6 +97,7 @@ public class IFSListPanel extends JPanel{
     	add(new JScrollPane(table), BorderLayout.CENTER);
     }
     
+    //inner class TableModel to refresh the table including Searching.
     private static class ItemTableModel extends AbstractTableModel {
 
 		private static final long serialVersionUID = 1L;
@@ -105,6 +111,8 @@ public class IFSListPanel extends JPanel{
         }
         
         public void setData(ItemList<ItemFromSupplier> list) {
+        	//To set display list to either all items or search result.
+        	//then refresh the table.
         	this.items = list;
             fireTableDataChanged(); 
         }

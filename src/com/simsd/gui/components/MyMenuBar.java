@@ -24,10 +24,6 @@ public class MyMenuBar extends JMenuBar{
     private JMenuItem listSplr;
     private JMenuItem report;
 	
-	public static void main() {
-		//
-	}
-	
 	public MyMenuBar(MainWindow mw) {
 		this.mainWindow = mw;
         
